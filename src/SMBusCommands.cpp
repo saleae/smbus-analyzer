@@ -228,6 +228,7 @@ const CommandDesc pmbus_cmds[] = {
 {0xD9, "MFR_SPECIFIC_09",                        Undefined, Undefined,		FT_Undefined},
 {0xDA, "MFR_SPECIFIC_10",                        Undefined, Undefined,		FT_Undefined},
 {0xDB, "MFR_SPECIFIC_11",                        Undefined, Undefined,		FT_Undefined},
+{0xDC, "MFR_SPECIFIC_12",                        Undefined, Undefined,		FT_Undefined},
 {0xDD, "MFR_SPECIFIC_13",                        Undefined, Undefined,		FT_Undefined},
 {0xDE, "MFR_SPECIFIC_14",                        Undefined, Undefined,		FT_Undefined},
 {0xDF, "MFR_SPECIFIC_15",                        Undefined, Undefined,		FT_Undefined},
