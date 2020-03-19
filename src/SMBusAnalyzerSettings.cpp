@@ -61,10 +61,9 @@ bool SMBusAnalyzerSettings::SetSettingsFromInterfaces()
 		return false;
 	}
 
-	const int NUM_CHANNELS = 4;
-	Channel	all_channels[NUM_CHANNELS] = {mSMBDATInterface.GetChannel(), mSMBCLKInterface.GetChannel()};
+	std::vector<Channel> all_channels{mSMBDATInterface.GetChannel(), mSMBCLKInterface.GetChannel()};
 
-	if (AnalyzerHelpers::DoChannelsOverlap(all_channels, NUM_CHANNELS))
+	if (AnalyzerHelpers::DoChannelsOverlap(all_channels.data(), all_channels.size()))
 	{
 		SetErrorText("Please select different inputs for the channels.");
 		return false;
