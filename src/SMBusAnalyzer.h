@@ -11,43 +11,41 @@
 
 class SMBusAnalyzer : public Analyzer2
 {
-public:
-	SMBusAnalyzer();
-	virtual ~SMBusAnalyzer();
-	virtual void WorkerThread();
+  public:
+    SMBusAnalyzer();
+    virtual ~SMBusAnalyzer();
+    virtual void WorkerThread();
 
-	virtual U32 GenerateSimulationData(U64 newest_sample_requested, U32 sample_rate, SimulationChannelDescriptor** simulation_channels);
-	virtual U32 GetMinimumSampleRateHz();
+    virtual U32 GenerateSimulationData( U64 newest_sample_requested, U32 sample_rate, SimulationChannelDescriptor** simulation_channels );
+    virtual U32 GetMinimumSampleRateHz();
 
-	virtual const char* GetAnalyzerName() const;
-	virtual bool NeedsRerun();
+    virtual const char* GetAnalyzerName() const;
+    virtual bool NeedsRerun();
 
-	// helpers
-	AnalyzerChannelData* GetNearestTransitionChannel();
-	AnalyzerChannelData* AdvanceAllTo(U64 toSample);
+    // helpers
+    AnalyzerChannelData* GetNearestTransitionChannel();
+    AnalyzerChannelData* AdvanceAllTo( U64 toSample );
 
-	// returns true if it state is a Zero or a One, false for Start or stop
-	bool GetSignal(SMBusSignalState& state);
+    // returns true if it state is a Zero or a One, false for Start or stop
+    bool GetSignal( SMBusSignalState& state );
 
-	virtual void SetupResults();
+    virtual void SetupResults();
 
-protected:	// functions
+  protected: // functions
+  protected: // vars
+    SMBusAnalyzerSettings mSettings;
+    std::auto_ptr<SMBusAnalyzerResults> mResults;
 
-protected:	// vars
+    AnalyzerChannelData* mSMBDAT;
+    AnalyzerChannelData* mSMBCLK;
 
-	SMBusAnalyzerSettings				mSettings;
-	std::auto_ptr<SMBusAnalyzerResults>	mResults;
+    SMBusSimulationDataGenerator mSimulationDataGenerator;
 
-	AnalyzerChannelData*				mSMBDAT;
-	AnalyzerChannelData*				mSMBCLK;
-
-	SMBusSimulationDataGenerator		mSimulationDataGenerator;
-
-	bool	mSimulationInitilized;
+    bool mSimulationInitilized;
 };
 
 extern "C" ANALYZER_EXPORT const char* __cdecl GetAnalyzerName();
 extern "C" ANALYZER_EXPORT Analyzer* __cdecl CreateAnalyzer();
-extern "C" ANALYZER_EXPORT void __cdecl DestroyAnalyzer(Analyzer* analyzer);
+extern "C" ANALYZER_EXPORT void __cdecl DestroyAnalyzer( Analyzer* analyzer );
 
-#endif	// SMBUS_ANALYZER_H
+#endif // SMBUS_ANALYZER_H

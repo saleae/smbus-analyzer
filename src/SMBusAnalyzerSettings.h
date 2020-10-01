@@ -8,33 +8,32 @@
 
 class SMBusAnalyzerSettings : public AnalyzerSettings
 {
-public:
-	SMBusAnalyzerSettings();
-	virtual ~SMBusAnalyzerSettings();
+  public:
+    SMBusAnalyzerSettings();
+    virtual ~SMBusAnalyzerSettings();
 
-	virtual bool SetSettingsFromInterfaces();
-	virtual void LoadSettings(const char* settings);
-	virtual const char* SaveSettings();
+    virtual bool SetSettingsFromInterfaces();
+    virtual void LoadSettings( const char* settings );
+    virtual const char* SaveSettings();
 
-	void UpdateInterfacesFromSettings();
+    void UpdateInterfacesFromSettings();
 
-	Channel		mSMBDAT;
-	Channel		mSMBCLK;
+    Channel mSMBDAT;
+    Channel mSMBCLK;
 
-	SMBusDecodeLevel	mDecodeLevel;
+    SMBusDecodeLevel mDecodeLevel;
 
-	bool CalcPEC()
-	{
-		return mCalculatePECInterface.GetValue();
-	}
+    bool CalcPEC()
+    {
+        return mCalculatePECInterface.GetValue();
+    }
 
-protected:
-	AnalyzerSettingInterfaceChannel		mSMBDATInterface;
-	AnalyzerSettingInterfaceChannel		mSMBCLKInterface;
+  protected:
+    AnalyzerSettingInterfaceChannel mSMBDATInterface;
+    AnalyzerSettingInterfaceChannel mSMBCLKInterface;
 
-	AnalyzerSettingInterfaceNumberList	mDecodeLevelInterface;
-	AnalyzerSettingInterfaceBool		mCalculatePECInterface;
-
+    AnalyzerSettingInterfaceNumberList mDecodeLevelInterface;
+    AnalyzerSettingInterfaceBool mCalculatePECInterface;
 };
 
-#endif	// SMBUS_ANALYZER_SETTINGS_H
+#endif // SMBUS_ANALYZER_SETTINGS_H
