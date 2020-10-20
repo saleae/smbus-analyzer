@@ -247,7 +247,7 @@ void SMBusAnalyzer::WorkerThread()
         {
             if( byte.IsComplete() )
             {
-                if( packet.chunks.back().size() == 1 ) // if this is the first byte of the packet
+                if( !packet.chunks.empty() && packet.chunks.back().size() == 1 ) // if this is the first byte of the packet
                     mResults->AddFrame( byte.ToAddrFrame( NULL ) );
                 else
                     mResults->AddFrame( byte.ToFrame() );
