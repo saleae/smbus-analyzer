@@ -42,11 +42,30 @@ AnalyzerChannelData* SMBusAnalyzer::AdvanceAllTo( U64 toSample )
 
 AnalyzerChannelData* SMBusAnalyzer::GetNearestTransitionChannel()
 {
+    // if neither channel has more transitions, block for more data.
+    while( !mSMBDAT->DoMoreTransitionsExistInCurrentData() && !mSMBCLK->DoMoreTransitionsExistInCurrentData() )
+    {
+        // DoMoreTransitionsExistInCurrentData will block for up to 250ms waiting for more data, and it will trigger a thread exit if the
+        // capture ends and there is still no more data.
+    }
+
     if( !mSMBDAT->DoMoreTransitionsExistInCurrentData() )
-        return mSMBCLK;
+    {
+        auto next_clk_edge = mSMBCLK->GetSampleOfNextEdge();
+        if( !mSMBDAT->WouldAdvancingToAbsPositionCauseTransition( next_clk_edge ) )
+        {
+            return mSMBCLK;
+        }
+    }
 
     if( !mSMBCLK->DoMoreTransitionsExistInCurrentData() )
-        return mSMBDAT;
+    {
+        auto next_dat_edge = mSMBDAT->GetSampleOfNextEdge();
+        if( !mSMBCLK->WouldAdvancingToAbsPositionCauseTransition( next_dat_edge ) )
+        {
+            return mSMBDAT;
+        }
+    }
 
     if( mSMBDAT->GetSampleOfNextEdge() < mSMBCLK->GetSampleOfNextEdge() )
         return mSMBDAT;
