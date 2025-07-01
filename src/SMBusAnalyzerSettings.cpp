@@ -23,8 +23,8 @@ SMBusAnalyzerSettings::SMBusAnalyzerSettings() : mSMBDAT( UNDEFINED_CHANNEL ), m
     mDecodeLevelInterface.SetNumber( DL_Signals );
 
     mCalculatePECInterface.SetValue( true );
-    mCalculatePECInterface.SetTitleAndTooltip( "Calculate PEC on packets", "true - calculate PEC, false - no PEC on packets" );
-
+    mCalculatePECInterface.SetTitleAndTooltip( "", "true - calculate PEC, false - no PEC on packets" );
+    mCalculatePECInterface.SetCheckBoxText( "Calculate PEC on packets" );
     // add the interfaces
     AddInterface( &mSMBDATInterface );
     AddInterface( &mSMBCLKInterface );
